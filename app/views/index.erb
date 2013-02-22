@@ -1,22 +1,30 @@
-<h2> My blog</h2>
 <div class="container">
+<h1> My blog</h1>
+  <% @posts.each do |post| %>
+    <div class="post">
+      <h3><a href="/post/<%=post.id%>"><%= post.title %></a></h3>
+      <p><%= post.body %></p>
+    </div>
+  <% end %>
+  <div class="digg_pagination" style="margin:20px 0 0 0;">
+      <%= will_paginate @posts, :container => false %>
+    </div>
 
-<% @posts.each do |post| %>
-  <h3><a href="/post/<%=post.id%>"><%= post.title %></a></h3>
-  <div><%= post.body %></div>
-<% end %>
-<div class="digg_pagination" style="margin:20px 0 0 0;">
-    <%= will_paginate @posts, :container => false %>
+  <h3> New Blog Post </h3>
+  <div class="new_post">
+    <form action="/post" method="post">
+      <% if @new_post && @new_post.errors %>
+      Uhoh we got some errors here. Let's fix em!
+      <div id="error"><% @new_post.errors.full_messages.each do |message| %></div>
+      <%= message%>
+      <% end %>
+      <br>
+      <% end %>
+      <input type="text" name="post[title]" placeholder="title"><br>
+      <textarea rows=5 cols=55 name="post[body]"></textarea><br>
+      <input type="text" name="tags" placeholder="tag1 tag 2: put in  your tags here separated by a space"><br>
+      <input type="hidden" name="post[author_id]" value=1>
+      <input type="submit" name="submit" value="Post"><br>
+    </form>
   </div>
-
-<h3> New Blog Post </h3>
-<div class="new_post">
-  <form action="/post" method="post">
-    <input type="text" name="post[title]" placeholder="title"><br>
-    <textarea rows=5 cols=30 name="post[body]"></textarea><br>
-    <input type="text" name="tags" placeholder="tag1 tag 2: put in  your tags here separated by a space"><br>
-    <input type="hidden" name="post[author_id]" value=1>
-    <input type="submit" name="submit" value="Post"><br>
-  </form>
-</div>
 </div>

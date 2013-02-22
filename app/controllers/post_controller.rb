@@ -4,23 +4,26 @@ get '/post/:id' do
 end
 
 post '/post' do
-  new_post = Post.create(params[:post])
+  @posts = Post.paginate(:page => params[:page], :per_page => 5)
+  @new_post = Post.new(params[:post])
   puts params[:post]
   tags = params[:tags]
   tags = tags.split(' ')
-  tags.each do |tag|
-    if Tag.find_by_name(tag)
-      p tag.inspect
-      puts "hey it made it"
-      new_tag = Tag.find_by_name(tag)
-      puts new_tag.inspect
-    else 
-      p tag.inspect
-      new_tag = Tag.create :name => tag    
+  if @new_post.save
+    tags.each do |tag|
+      if Tag.find_by_name(tag)
+        puts "hey it made it"
+        new_tag = Tag.find_by_name(tag)
+      else 
+        new_tag = Tag.create :name => tag    
+      end
+        post = Post.find_by_title(params[:post][:title])
+        PostTag.create :tag_id => new_tag.id, :post_id => post.id
     end
-    PostTag.create :tag_id => new_tag.id, :post_id => new_post.id
+    redirect to '/'
+  else
+    erb :index
   end
-  redirect to '/'
 end
 
 get '/post/:id/edit' do

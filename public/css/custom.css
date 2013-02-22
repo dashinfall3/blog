@@ -1,3 +1,55 @@
 .new_post {
   margin: 0 0 0 0;
 }
+
+
+.container{
+	margin: 0 auto;
+	width: 700px;
+}
+
+p {
+	font-family: georgia;
+	font-size: 13px;
+	line-height: 20px;
+}
+
+h1 {
+	color: #535353;
+	font-size: 36px;
+}
+
+h3 {
+	color: #535353;
+	font-size: 26px;
+	margin: 20px 0 0px 0;
+}
+
+h3 a {
+	color: #535353;
+	font-size: 26px;
+	text-decoration: none;
+
+}
+
+h3 a:hover {
+	cursor:pointer;
+	text-decoration: underline;
+}
+
+input {
+	margin: 15px 0 0 0;
+	border-radius:3px;
+	color: #838383;
+	width: 500px;
+}
+
+textarea {
+	margin: 15px 0 0 0;
+	border-radius: 3px;
+	color: #838383;
+}
+
+.post {
+	border-bottom: #ddd 1px solid;
+}
